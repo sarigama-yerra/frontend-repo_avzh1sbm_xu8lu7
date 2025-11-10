@@ -11,8 +11,8 @@ export default function Testimonials() {
     const ctx = gsap.context(() => {
       gsap.fromTo(
         cards,
-        { y: 16, opacity: 0 },
-        { y: 0, opacity: 1, duration: 0.7, stagger: 0.1, ease: 'power3.out' }
+        { y: 18, opacity: 0, filter: 'blur(4px)' },
+        { y: 0, opacity: 1, filter: 'blur(0px)', duration: 0.7, stagger: 0.1, ease: 'power3.out' }
       );
     }, sectionRef);
 
@@ -44,7 +44,7 @@ export default function Testimonials() {
   ];
 
   return (
-    <section ref={sectionRef} id="story" className="bg-[#0a0b10] py-20">
+    <section ref={sectionRef} id="story" className="bg-[#07080d] py-20">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="text-center">
           <h2 className="text-2xl sm:text-3xl font-bold text-white">What People Are Saying</h2>
@@ -56,7 +56,7 @@ export default function Testimonials() {
             <figure
               key={q.id}
               data-quote
-              className="rounded-2xl border border-white/10 bg-white/5 p-6 will-change-transform hover:translate-y-[-2px] transition-transform"
+              className="rounded-2xl border border-white/10 backdrop-blur bg-white/5 p-6 will-change-transform transition-transform hover:-translate-y-0.5"
               style={{
                 backgroundImage:
                   'linear-gradient(135deg, rgba(56,189,248,0.08), rgba(217,70,239,0.08))',

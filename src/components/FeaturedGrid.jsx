@@ -11,8 +11,8 @@ export default function FeaturedGrid() {
     const ctx = gsap.context(() => {
       gsap.fromTo(
         cards,
-        { y: 24, opacity: 0 },
-        { y: 0, opacity: 1, duration: 0.8, stagger: 0.08, ease: 'power3.out' }
+        { y: 28, opacity: 0, filter: 'blur(6px)' },
+        { y: 0, opacity: 1, filter: 'blur(0px)', duration: 0.8, stagger: 0.08, ease: 'power3.out' }
       );
     }, sectionRef);
 
@@ -55,7 +55,7 @@ export default function FeaturedGrid() {
   ];
 
   return (
-    <section ref={sectionRef} id="collection" className="relative bg-[#0a0b10] py-20">
+    <section ref={sectionRef} id="collection" className="relative bg-[#07080d] py-20">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="flex items-end justify-between gap-6">
           <h2 className="text-2xl sm:text-3xl font-bold text-white">Featured Drops</h2>
@@ -67,7 +67,7 @@ export default function FeaturedGrid() {
             <article
               key={p.id}
               data-card
-              className="group rounded-2xl overflow-hidden bg-white/5 border border-white/10 will-change-transform hover:shadow-[0_0_40px_-10px_rgba(59,130,246,0.5)] transition-shadow"
+              className="group rounded-2xl overflow-hidden border border-white/10 backdrop-blur bg-white/5 will-change-transform transition-shadow shadow-[inset_0_1px_0_rgba(255,255,255,0.06)] hover:shadow-[0_0_60px_-10px_rgba(56,189,248,0.45)]"
               style={{
                 backgroundImage:
                   'linear-gradient(135deg, rgba(56,189,248,0.10), rgba(99,102,241,0.10))',
@@ -81,17 +81,24 @@ export default function FeaturedGrid() {
                   loading="lazy"
                 />
                 {/* Light sweep on hover */}
-                <div className="pointer-events-none absolute inset-0 opacity-0 group-hover:opacity-100 transition" style={{
-                  background:
-                    'linear-gradient(120deg, transparent 30%, rgba(255,255,255,0.15) 50%, transparent 70%)',
-                }} />
+                <div
+                  aria-hidden
+                  className="pointer-events-none absolute inset-0 opacity-0 group-hover:opacity-100 transition"
+                  style={{
+                    background:
+                      'linear-gradient(120deg, transparent 30%, rgba(255,255,255,0.12) 50%, transparent 70%)',
+                  }}
+                />
               </div>
               <div className="p-4">
                 <h3 className="text-white font-medium">{p.name}</h3>
                 <p className="text-white/60 text-sm">{p.color}</p>
                 <div className="mt-3 flex items-center justify-between">
                   <span className="text-white font-semibold">{p.price}</span>
-                  <button className="inline-flex items-center rounded-lg bg-white text-gray-900 px-3 py-1.5 text-sm font-medium hover:scale-[1.03] transition will-change-transform">
+                  <button
+                    className="inline-flex items-center rounded-lg bg-white text-gray-900 px-3 py-1.5 text-sm font-medium transition will-change-transform hover:scale-[1.04]"
+                    aria-label={`Add ${p.name} to cart`}
+                  >
                     Add to cart
                   </button>
                 </div>

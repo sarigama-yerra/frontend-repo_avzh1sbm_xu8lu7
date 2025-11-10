@@ -5,38 +5,57 @@ import FeaturedGrid from './components/FeaturedGrid';
 import Testimonials from './components/Testimonials';
 import Footer from './components/Footer';
 import { gsap } from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+gsap.registerPlugin(ScrollTrigger);
 
 function App() {
   const gradientRef = useRef(null);
 
   useEffect(() => {
     if (!gradientRef.current) return;
-    // Animate a subtle, looping hue rotation for the background gradient
+
     const ctx = gsap.context(() => {
-      gsap.set(gradientRef.current, { '--hue': 0 });
+      gsap.set(gradientRef.current, { '--hue': 0, '--intensity': 1 });
+
+      // Smooth looping hue rotation across purple→blue→orange
       gsap.to(gradientRef.current, {
-        duration: 12,
+        duration: 16,
         repeat: -1,
         ease: 'none',
         keyframes: [
-          { '--hue': 120 },
-          { '--hue': 240 },
-          { '--hue': 360 },
+          { '--hue': 60 }, // warm
+          { '--hue': 200 }, // blue
+          { '--hue': 300 }, // magenta
+          { '--hue': 20 }, // orange
+          { '--hue': 0 },
         ],
       });
+
+      // Scroll-linked subtle intensity shift
+      ScrollTrigger.create({
+        trigger: document.body,
+        start: 'top top',
+        end: 'bottom bottom',
+        onUpdate: (self) => {
+          const v = 1 + self.progress * 0.4; // 1 → 1.4
+          gradientRef.current?.style.setProperty('--intensity', String(v));
+        },
+      });
     });
+
     return () => ctx.revert();
   }, []);
 
   return (
-    <div className="min-h-screen w-full bg-[#0a0b10] text-white relative">
-      {/* Animated, color-shifting gradient background */}
+    <div className="min-h-screen w-full bg-[#07080d] text-white relative">
+      {/* Animated, color-shifting gradient background (non-blocking) */}
       <div
         ref={gradientRef}
         className="pointer-events-none fixed inset-0 z-0"
         style={{
           background:
-            'radial-gradient(1200px 800px at 20% 30%, rgba(88, 101, 242, 0.20), transparent 60%), radial-gradient(1000px 700px at 80% 70%, rgba(56, 189, 248, 0.18), transparent 60%), radial-gradient(900px 600px at 50% 50%, rgba(217, 70, 239, 0.16), transparent 60%)',
+            'radial-gradient(1200px 800px at 20% 30%, rgba(139, 92, 246, calc(0.18 * var(--intensity,1))), transparent 60%), radial-gradient(1000px 700px at 80% 70%, rgba(56, 189, 248, calc(0.16 * var(--intensity,1))), transparent 60%), radial-gradient(900px 600px at 50% 55%, rgba(249, 115, 22, calc(0.12 * var(--intensity,1))), transparent 60%)',
           filter: 'hue-rotate(var(--hue, 0deg))',
         }}
       />

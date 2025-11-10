@@ -35,7 +35,7 @@ export default function Navbar() {
             </nav>
 
             <div className="hidden md:flex items-center gap-3">
-              <button className="inline-flex items-center gap-2 rounded-xl bg-white text-gray-900 px-4 py-2 font-medium shadow hover:shadow-md transition hover:scale-[1.02] will-change-transform">
+              <button className="inline-flex items-center gap-2 rounded-xl bg-white text-gray-900 px-4 py-2 font-medium shadow hover:shadow-md transition hover:scale-[1.03] will-change-transform">
                 <ShoppingCart size={18} />
                 Cart
               </button>
@@ -57,7 +57,7 @@ export default function Navbar() {
                 <a href="#men" className="hover:text-white transition">Men</a>
                 <a href="#women" className="hover:text-white transition">Women</a>
                 <a href="#sale" className="hover:text-white transition">Sale</a>
-                <button className="mt-2 inline-flex items-center gap-2 rounded-xl bg-white text-gray-900 px-4 py-2 font-medium shadow hover:scale-[1.02] transition">
+                <button className="mt-2 inline-flex items-center gap-2 rounded-xl bg-white text-gray-900 px-4 py-2 font-medium shadow hover:scale-[1.03] transition">
                   <ShoppingCart size={18} />
                   Cart
                 </button>
